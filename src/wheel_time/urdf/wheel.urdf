@@ -1,0 +1,64 @@
+<robot name="onshape">
+<link name="wheel">
+<visual>
+<origin xyz="-5.35596e-17 -3.46945e-18 0.2032" rpy="0 -1.34206 0" />
+<geometry>
+<mesh filename="/home/mackenzie/catkin_ws/src/wheel_time/urdf/wheel.stl"/>
+</geometry>
+<material name="wheel_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-5.35596e-17 -3.46945e-18 0.2032" rpy="0 -1.34206 0" />
+<geometry>
+<mesh filename="/home/mackenzie/catkin_ws/src/wheel_time/urdf/wheel.stl"/>
+</geometry>
+<material name="wheel_material">
+<color rgba="0.615686 0.811765 0.929412 1.0"/>
+</material>
+</collision>
+<inertial>
+<origin xyz="0.0052322 -8.77802e-18 0.200694" rpy="0 0 0"/>
+<mass value="3.86134" />
+<inertia ixx="0.0237089" ixy="0"  ixz="-0.00115814" iyy="0.0438939" iyz="0" izz="0.0218459" />
+</inertial>
+</link>
+
+<link name="base">
+<visual>
+<origin xyz="0 0 2.77556e-17" rpy="1.5708 -0 0" />
+<geometry>
+<mesh filename="/home/mackenzie/catkin_ws/src/wheel_time/urdf/base.stl"/>
+</geometry>
+<material name="base_material">
+<color rgba="0.647059 0.647059 0.647059 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 2.77556e-17" rpy="1.5708 -0 0" />
+<geometry>
+<mesh filename="/home/mackenzie/catkin_ws/src/wheel_time/urdf/base.stl"/>
+</geometry>
+<material name="base_material">
+<color rgba="0.647059 0.647059 0.647059 1.0"/>
+</material>
+</collision>
+<inertial>
+<origin xyz="1.22816e-17 0.16961 1.11308e-17" rpy="0 0 0"/>
+<mass value="11.195" />
+<inertia ixx="0.0514132" ixy="0"  ixz="0" iyy="0.0926616" iyz="0" izz="0.102411" />
+</inertial>
+</link>
+
+<joint name="rev" type="continuous">
+<origin xyz="-2.77556e-17 -8.67362e-18 0.2032" rpy="-1.5708 -0 0" />
+<parent link="wheel" />
+<child link="base" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" />
+<joint_properties friction="0.0"/>
+</joint>
+
+
+</robot>
