@@ -1,7 +1,7 @@
 <robot name="onshape">
 <link name="wheel">
 <visual>
-<origin xyz="-5.35596e-17 -3.46945e-18 0.2032" rpy="0 -1.34206 0" />
+<origin xyz="-1.41488e-17 -1.56125e-17 0.2032" rpy="0 -0.0149119 0" />
 <geometry>
 <mesh filename="/home/mackenzie/catkin_ws/src/wheel_time/urdf/wheel.stl"/>
 </geometry>
@@ -10,7 +10,7 @@
 </material>
 </visual>
 <collision>
-<origin xyz="-5.35596e-17 -3.46945e-18 0.2032" rpy="0 -1.34206 0" />
+<origin xyz="-1.41488e-17 -1.56125e-17 0.2032" rpy="0 -0.0149119 0" />
 <geometry>
 <mesh filename="/home/mackenzie/catkin_ws/src/wheel_time/urdf/wheel.stl"/>
 </geometry>
@@ -19,9 +19,9 @@
 </material>
 </collision>
 <inertial>
-<origin xyz="0.0052322 -8.77802e-18 0.200694" rpy="0 0 0"/>
-<mass value="3.86134" />
-<inertia ixx="0.0237089" ixy="0"  ixz="-0.00115814" iyy="0.0438939" iyz="0" izz="0.0218459" />
+<origin xyz="-1.46354e-17 -2.08433e-17 0.2032" rpy="0 0 0"/>
+<mass value="0.534374" />
+<inertia ixx="0.00318283" ixy="0"  ixz="-2.68925e-21" iyy="0.00592742" iyz="0" izz="0.00318283" />
 </inertial>
 </link>
 
@@ -45,7 +45,7 @@
 </material>
 </collision>
 <inertial>
-<origin xyz="1.22816e-17 0.16961 1.11308e-17" rpy="0 0 0"/>
+<origin xyz="1.16661e-17 0.16961 1.1502e-17" rpy="0 0 0"/>
 <mass value="11.195" />
 <inertia ixx="0.0514132" ixy="0"  ixz="0" iyy="0.0926616" iyz="0" izz="0.102411" />
 </inertial>
@@ -60,5 +60,25 @@
 <joint_properties friction="0.0"/>
 </joint>
 
+<gazebo reference="wheel">
+    <material>Gazebo/Orange</material>
+</gazebo>
+
+<gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+    <robotNamespace>/wheel_time</robotNamespace>
+  </plugin>
+</gazebo>
+
+<transmission name="trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="rev">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+</transmission>
 
 </robot>
