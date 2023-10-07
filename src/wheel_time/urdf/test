@@ -4,3 +4,22 @@
     <joint_name>rev</joint_name>
   </plugin>
 </gazebo>
+
+<gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+    <robotNamespace>/wheel_time</robotNamespace>
+  </plugin>
+</gazebo>
+
+<gazebo>
+    <transmission name="trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="rev">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor2">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+</gazebo>
