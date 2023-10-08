@@ -39,27 +39,26 @@
 import rospy
 from std_msgs.msg import String
 from sensor_msgs.msg import JointState
+from std_msgs.msg import Float64
 
+class CommandToJointState:
+    def __init__(self):
+        self.joint_name = 'rev'
+        self.joint_state = JointState()
+        self.joint_state.name.append(self.joint_name)
+        self.joint_state.position.append(0.0)
+        self.joint_state.velocity.append(0.0)
+        self.joint_pub = rospy.Publisher("/wheel/rev_position_controller/command", Float64, queue_size=1)
+        self.command_sub = rospy.Subscriber('/wheel/joint_states', JointState,
+                                            self.command_callback, queue_size=1)
 
-def some_callback(msg):
-    msg_str = str(msg)
-    
-    rospy.loginfo('Got the message: ' + str(msg))
-
-def listener():
-    pub = rospy.Publisher('chatter', String, queue_size=10)
-    # In ROS, nodes are uniquely named. If two nodes with the same
-    # name are launched, the previous one is kicked off. The
-    # anonymous=True flag means that rospy will choose a unique
-    # name for our 'listener' node so that multiple listeners can
-    # run simultaneously.
-    rospy.init_node('listener', anonymous=True)
-
-    # rospy.Subscriber('chatter', String, callback)
-    rospy.Subscriber('/wheel/joint_states', JointState, some_callback)
-    # rospy.loginfo("sldfkjsldfkj")
-    # spin() simply keeps python from exiting until this node is stopped
-    rospy.spin()
+    def command_callback(self, msg):
+        msg_str = str(msg)
+        i = msg_str.find('position: [')+11
+        pos = float(msg_str[i:i+12])
+        self.joint_pub.publish(pos+1)
 
 if __name__ == '__main__':
-    listener()
+    rospy.init_node('command_to_joint_state')
+    command_to_joint_state = CommandToJointState()
+    rospy.spin()
