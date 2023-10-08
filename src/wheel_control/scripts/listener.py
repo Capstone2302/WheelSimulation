@@ -38,12 +38,16 @@
 
 import rospy
 from std_msgs.msg import String
+from sensor_msgs.msg import JointState
 
-def callback(data):
-    rospy.loginfo(rospy.get_caller_id() + 'I heard %s', data.data)
+
+def some_callback(msg):
+    msg_str = str(msg)
+    
+    rospy.loginfo('Got the message: ' + str(msg))
 
 def listener():
-
+    pub = rospy.Publisher('chatter', String, queue_size=10)
     # In ROS, nodes are uniquely named. If two nodes with the same
     # name are launched, the previous one is kicked off. The
     # anonymous=True flag means that rospy will choose a unique
@@ -51,8 +55,9 @@ def listener():
     # run simultaneously.
     rospy.init_node('listener', anonymous=True)
 
-    rospy.Subscriber('chatter', String, callback)
-
+    # rospy.Subscriber('chatter', String, callback)
+    rospy.Subscriber('/wheel/joint_states', JointState, some_callback)
+    # rospy.loginfo("sldfkjsldfkj")
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
 
