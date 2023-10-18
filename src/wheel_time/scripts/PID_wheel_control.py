@@ -112,8 +112,8 @@ class CommandToJointState:
                 
                 self.PID_control()
         # cv2.imshow("output", np.hstack([cv_image, output]))
-        # cv2.imshow("Image window", cv_image)
-        # cv2.waitKey(1)
+        cv2.imshow("Image window", output)
+        cv2.waitKey(1)
 
 
     def pootLovato(self, jointState,image):
